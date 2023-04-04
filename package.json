@@ -1,0 +1,23 @@
+{
+    "name": "editor",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "test": "pm2 delete camera-backend && pm2 delete camera-flv-server",
+        "build": "tsc -p tsconfig.backend.json"
+    },
+    "devDependencies": {
+        "@babel/types": "^7.21.4",
+        "@types/express": "^4.17.17",
+        "@vitejs/plugin-vue": "^4.1.0",
+        "typescript": "^5.0.3",
+        "vite": "^4.2.0",
+        "vue-tsc": "^1.2.0"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "pm2": "^5.3.0",
+        "vue": "^3.2.47"
+    }
+}

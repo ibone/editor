@@ -4,8 +4,9 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "test": "pm2 delete camera-backend && pm2 delete camera-flv-server",
-        "build": "tsc -p tsconfig.backend.json"
+        "test": "",
+        "build": "vite build",
+        "preview": "vite preview"
     },
     "devDependencies": {
         "@babel/types": "^7.21.4",

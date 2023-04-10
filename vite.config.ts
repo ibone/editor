@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   server: {
-    open: 'src/index.html',
+    open: 'index.html',
     port: 3000,
   },
 })

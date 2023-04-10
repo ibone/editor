@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import editor from './editor.vue';
 // reactive state
 const count = ref(0)
 
@@ -16,4 +17,5 @@ onMounted(() => {
 
 <template>
   <button @click="increment">Count is: {{ count }}</button>
+  <editor />
 </template>

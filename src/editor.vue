@@ -2,6 +2,8 @@
 import {EditorState} from "prosemirror-state"
 import {EditorView} from "prosemirror-view"
 import {Schema, DOMParser, Node} from "prosemirror-model"
+import {keymap} from "prosemirror-keymap"
+import {baseKeymap} from "./commands"
 import { ref, onMounted } from 'vue'
 import {schema} from "./schema"
 
@@ -30,7 +32,7 @@ onMounted(() => {
         }
       ]
     }),
-    // plugins: exampleSetup({schema: mySchema})
+    plugins: [keymap(baseKeymap)]
   })
 })
 })

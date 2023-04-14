@@ -129,18 +129,18 @@ function joinTextblocksAround(
   $cut: ResolvedPos,
   dispatch?: (tr: Transaction) => void
 ) {
-  const before = $cut.nodeBefore!,
-    beforeText = before,
-    beforePos = $cut.pos - 1;
+  const before = $cut.nodeBefore!;
+  let beforeText = before;
+  let beforePos = $cut.pos - 1;
   for (; !beforeText.isTextblock; beforePos--) {
     if (beforeText.type.spec.isolating) return false;
     const child = beforeText.lastChild;
     if (!child) return false;
     beforeText = child;
   }
-  let after = $cut.nodeAfter!,
-    afterText = after,
-    afterPos = $cut.pos + 1;
+  const after = $cut.nodeAfter!;
+  let afterText = after;
+  let afterPos = $cut.pos + 1;
   for (; !afterText.isTextblock; afterPos++) {
     if (afterText.type.spec.isolating) return false;
     const child = afterText.firstChild;
@@ -181,8 +181,8 @@ function textblockAt(node: Node, side: 'start' | 'end', only = false) {
 /// commands, as a fall-back behavior when the schema doesn't allow
 /// deletion at the selected point.
 export const selectNodeBackward: Command = (state, dispatch, view) => {
-  let { $head, empty } = state.selection,
-    $cut: ResolvedPos | null = $head;
+  const { $head, empty } = state.selection;
+  let $cut: ResolvedPos | null = $head;
   if (!empty) return false;
 
   if ($head.parent.isTextblock) {
@@ -279,8 +279,8 @@ export const joinForward: Command = (state, dispatch, view) => {
 /// commands, to provide a fall-back behavior when the schema doesn't
 /// allow deletion at the selected point.
 export const selectNodeForward: Command = (state, dispatch, view) => {
-  let { $head, empty } = state.selection,
-    $cut: ResolvedPos | null = $head;
+  const { $head, empty } = state.selection;
+  let $cut: ResolvedPos | null = $head;
   if (!empty) return false;
   if ($head.parent.isTextblock) {
     if (
@@ -310,9 +310,9 @@ function findCutAfter($pos: ResolvedPos) {
 /// closest ancestor block of the selection that can be joined, with
 /// the sibling above it.
 export const joinUp: Command = (state, dispatch) => {
-  let sel = state.selection,
-    nodeSel = sel instanceof NodeSelection,
-    point;
+  const sel = state.selection;
+  const nodeSel = sel instanceof NodeSelection;
+  let point;
   if (nodeSel) {
     if ((sel as NodeSelection).node.isTextblock || !canJoin(state.doc, sel.from)) return false;
     point = sel.from;

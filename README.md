@@ -1,6 +1,5 @@
 # prosemirror-sample
 
-SELECT name FROM world WHERE name LIKE 'F%'
 IF NO_SELECTION
     DO DELETE 
         HEAD 

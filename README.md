@@ -1,5 +1,6 @@
 # prosemirror-sample
 
+```
 IF NO_SELECTION
     DO DELETE 
         HEAD 
@@ -19,3 +20,4 @@ IF NODE_SELECTION
     DO DELETE
     DO LEFT_MOVE
     DO RIGHT_MOVE
+```

@@ -16,6 +16,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <button @click="increment">Count is: {{ count }}</button>
   <editor />
 </template>

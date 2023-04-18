@@ -6,7 +6,8 @@
         "dev": "vite",
         "test": "",
         "build": "vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "build_command": "tsc ./src/script/parse.ts && node ./src/script/parse.js"
     },
     "devDependencies": {
         "@babel/types": "^7.21.4",

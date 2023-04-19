@@ -17,7 +17,8 @@ function readFile(path) {
 function main() {
     readFile(path.join(__dirname, '../commands/.commands'))
         .then(function (data) {
-        console.log(data);
+        var arr = data.split('\n');
+        console.log(arr);
     })
         .catch(function (err) {
         console.log(err);

@@ -1,20 +1,19 @@
 SELECTION NO
     DO DELETE
-        POINT HEAD
-            && AT START
-            && PARENT LEVEL = 1 NAME = blockquote
-            => CHANGE_PARENT_TYPE_TO_PRAGRAPH
+        HEAD AT START
+        && HEAD IN PARENT_LEVEL=1 PARENT_NAME=blockquote
+        => CHANGE_PARENT_TYPE_TO_PRAGRAPH
     DO LEFT_MOVE
-        POINT HEAD
-            && AT START
-            && PARENT LEVEL = 1 NAME = blockquote
-            => MOVE_POINT
+        HEAD AT START
+        && HEAD IN PARENT_LEVEL=1 PARENT_NAME=blockquote
+        => MOVE_POINT
 SELECTION TEXT
     DO DELETE
-        && POINT HEAD
-            PARENT LEVEL = 1 NAME = blockquote
-        && POINT ARCHOR
-            PARENT LEVEL = 1 NAME = blockquote
+        HEAD IN PARENT_LEVEL=1 PARENT_NAME=blockquote
+        && ARCHOR IN PARENT_LEVEL=1 PARENT_NAME=blockquote
+        => MERGE_NODE
+        HEAD IN PARENT_LEVEL=1 PARENT_NAME=blockquote
+        && ARCHOR IN PARENT_LEVEL=1 PARENT_NAME=blockquote
         => MERGE_NODE
 SELECTION NODE
     DO DELETE

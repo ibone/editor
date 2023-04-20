@@ -17,6 +17,7 @@ const symbols = ['&&', '=>'];
 interface Line {
   level: number;
   command: string;
+  symbol: string;
   closed: boolean;
 }
 function main() {
@@ -28,11 +29,16 @@ function main() {
       arr.forEach((item) => {
         const matchResult = item.match(/^\s*/) || [''];
         const level = matchResult[0].length / 4;
-        lines.push({
-          level: level,
-          command: item.replace(/^\s*/, ''),
-          closed: true,
-        });
+        const command = item.replace(/^\s*/, '');
+        const symbol = command.match(/^(&& | =>)/);
+        if (command) {
+          lines.push({
+            level: level,
+            command: item.replace(/^\s*/, ''),
+            closed: true,
+            symbol: symbol ? symbol[0] : '',
+          });
+        }
       });
       const commands = getCommand(lines, 0, [], [], 0);
     })
@@ -43,20 +49,24 @@ function main() {
 
 function getCommand(
   lines: Line[],
-  curIndent: number,
+  indent: number,
   command: string[],
   commands: string[][],
   index: number
 ) {
   const line = lines[index];
-  if (line.level === curIndent) {
-    command.push(line.command);
-  } else if (line.level > curIndent) {
-    line.closed = false;
-    command.push(line.command);
-  }
-  if (!line.closed) {
-    getCommand;
+  if (line.level === indent) {
+    if (line.symbol === '&&') {
+      getCommand(lines, indent, command, commands, index + 1);
+    } else if (line.symbol === '=>') {
+      commands.push(command);
+      getCommand(lines, 0, [], commands, 0);
+    } else {
+      command.push(line.command);
+      getCommand(lines, indent + 1, command, commands, index + 1);
+    }
+  } else {
+    getCommand(lines, 0, [], commands, 0);
   }
 }
 

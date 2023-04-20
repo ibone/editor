@@ -1,24 +1,24 @@
 SELECTION NO
     DO DELETE
-        HEAD AT START
+        && HEAD AT START
         && HEAD IN PARENT_LEVEL=1 PARENT_NAME=blockquote
         => CHANGE_PARENT_TYPE_TO_PRAGRAPH
     DO LEFT_MOVE
-        HEAD AT START
+        && HEAD AT START
         && HEAD IN PARENT_LEVEL=1 PARENT_NAME=blockquote
         => MOVE_POINT
 SELECTION TEXT
     DO DELETE
-        HEAD IN PARENT_LEVEL=1 PARENT_NAME=blockquote
+        && HEAD IN PARENT_LEVEL=1 PARENT_NAME=blockquote
         && ARCHOR IN PARENT_LEVEL=1 PARENT_NAME=blockquote
         => MERGE_NODE
-        HEAD IN PARENT_LEVEL=1 PARENT_NAME=blockquote
+        && HEAD IN PARENT_LEVEL=1 PARENT_NAME=blockquote
         && ARCHOR IN PARENT_LEVEL=1 PARENT_NAME=blockquote
         => MERGE_NODE
 SELECTION NODE
     DO DELETE
-    => DELETE_NODE
+        => DELETE_NODE
     DO LEFT_MOVE
-    => MOVE_POINT
+        => MOVE_POINT
     DO RIGHT_MOVE
-    => MOVE_POINT
+        => MOVE_POINT

@@ -52,11 +52,14 @@ function getCommand(
   indent: number,
   command: string[],
   commands: string[][],
-  index: number
+  index: number,
+  parentIndex?: number
 ) {
   const line = lines[index];
   if (line.level === indent) {
-    if (line.symbol === '&&') {
+    if (line.closed) {
+      getCommand(lines, indent, command, commands, index + 1);
+    } else if (line.symbol === '&&') {
       getCommand(lines, indent, command, commands, index + 1);
     } else if (line.symbol === '=>') {
       commands.push(command);
@@ -66,8 +69,26 @@ function getCommand(
       getCommand(lines, indent + 1, command, commands, index + 1);
     }
   } else {
-    getCommand(lines, 0, [], commands, 0);
+    if (line.level > indent) {
+      if (typeof parentIndex === 'number') {
+        lines[parentIndex].closed = true;
+      }
+    } else {
+      line.closed = true;
+      getCommand(lines, 0, [], commands, 0);
+    }
   }
 }
+
+/**
+ * 1. 当前行indent与指定indent相等
+ *     1.1 遇到&&，将index加1，往下查找
+ *     1.2 遇到=>，命令查找结束，将command加入commands，并从头开始查找
+ *     1.3 默认操作，将index和indent都加1，往下查找
+ * 2. 当前行indent大于指定indent
+ *     2.1 查找到指定indent的底了，需要将指定indent的parent line做关闭
+ * 3. 当前行indent小于指定indent
+ *     3.1 格式错误，对当前行做关闭
+ */
 
 main();
